@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
-using Lab1.Tools;
-using Lab1.Tools.Zodiac;
+using Lab2.Tools;
+using Lab2.Tools.Zodiac;
 
-namespace Lab1.ViewModels
+namespace Lab2.ViewModels
 {
     class DatePickerViewModel : INotifyPropertyChanged
     {

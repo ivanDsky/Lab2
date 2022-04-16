@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lab1.Tools.Zodiac
+namespace Lab2.Tools.Zodiac
 {
     public class EuropeZodiac : Zodiac
     {

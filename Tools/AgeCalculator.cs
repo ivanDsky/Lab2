@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lab1.Tools
+namespace Lab2.Tools
 {
     public class AgeCalculator
     {
