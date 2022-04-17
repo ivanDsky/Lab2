@@ -29,8 +29,18 @@
             HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,2" FontSize="9" Foreground="Gray"
             Grid.Row="0" Grid.Column="1" Content="Date of birth:" VerticalContentAlignment="Center"/>
         <DatePicker Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
-                    SelectedDate="{Binding Path=Date, Mode=OneWay, UpdateSourceTrigger=LostFocus}"
-                    VerticalContentAlignment="Center"/>
+                    x:Name="datePicker"
+                    DisplayDateStart="{Binding StartDate, Mode=OneTime}"
+                    DisplayDateEnd="{Binding EndDate, Mode=OneTime}"
+                    SelectedDate="{Binding Path=BirthDate, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedDateChanged="datePicker_SelectedDateChanged"
+                    VerticalContentAlignment="Center">
+            <DatePicker.Resources>
+                <Style TargetType="DatePickerTextBox">
+                    <Setter Property="IsReadOnly" Value="True"/>
+                </Style>
+            </DatePicker.Resources>
+        </DatePicker>
 
         <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Height="40" Width="140"
                 Command="{Binding ShowFullInfo}"

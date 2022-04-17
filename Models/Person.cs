@@ -1,5 +1,6 @@
 using System;
 using Lab2.Tools;
+using Lab2.Tools.Validation;
 using Lab2.Tools.Zodiac;
 
 namespace Lab2.Models
@@ -30,6 +31,10 @@ namespace Lab2.Models
             get => _dateTime;
             set
             {
+                if (!BirthDateValidation.Validate(value))
+                {
+                    return;
+                }
                 if (value == null)
                 {
                     _dateTime = null;

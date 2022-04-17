@@ -25,7 +25,7 @@ namespace Lab2.Tools
             {
                 throw new ArgumentOutOfRangeException(null,"Age is negative");
             }
-            if (_deltaDate.Year >= 135)
+            if (_deltaDate.Year >= 136)
                 throw new ArgumentOutOfRangeException(null,"Age is greater than 135");
 
         }

@@ -9,8 +9,6 @@ namespace Lab2.ViewModels
     public class InfoWindowViewModel
     {
         #region Private fields
-
-        private readonly PersonValidation _validation = new PersonValidation();
         private Person _person = new Person("","");
         private RelayCommand<object> _showFullInfo;
 
@@ -21,16 +19,18 @@ namespace Lab2.ViewModels
         public string Name  { get => _person.Name; set => _person.Name = value; }
         public string Surname  { get => _person.Surname; set => _person.Surname = value; }
         public string Email  { get => _person.Email; set => _person.Email = value; }
+        public DateTime? BirthDate { get => _person.DateOfBirth; set => _person.DateOfBirth = value; }
+        public DateTime StartDate { get => DateTime.Today.AddYears(-135);}
+        public DateTime EndDate { get => DateTime.Today;}
 
         #endregion
 
         #region Private methods
-        private String AgeToString(DateTime age)
+
+
+        public void OnDataChanged(DateTime? date)
         {
-            return String.Format("{0} year{1}, {2} month{3}, {4} day{5}",
-                age.Year - 1, (age.Year - 1 > 1) ? "s" : "",
-                age.Month - 1, (age.Month - 1 > 1) ? "s" : "",
-                age.Day - 1, (age.Day - 1 > 1) ? "s" : "");
+            _person.DateOfBirth = date;
         }
         public RelayCommand<object> ShowFullInfo
         {
@@ -52,7 +52,7 @@ namespace Lab2.ViewModels
 
         private bool Validate(object obj)
         {
-            return _validation.Validate(_person);
+            return PersonValidation.Validate(_person);
         }
         #endregion
     }
