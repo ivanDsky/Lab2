@@ -44,6 +44,6 @@
 
         <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Height="40" Width="140"
                 Command="{Binding ShowFullInfo}"
-                Content="Validate"/>
+                Content="Show full info"/>
     </Grid>
 </Window>

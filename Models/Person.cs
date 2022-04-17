@@ -52,6 +52,14 @@ namespace Lab2.Models
             }
         }
 
+        public string BirthDate
+        {
+            get
+            {
+                CheckBirthNotNull();
+                return DateOfBirth.Value.ToShortDateString();
+            }
+        }
         public bool IsAdult
         {
             get
@@ -94,6 +102,19 @@ namespace Lab2.Models
             {
                 throw new MissingFieldException("No date birth detected");
             }
+        }
+
+        public override string ToString()
+        {
+            string ret = $"Name = {Name}\nSurname = {Surname}\nEmail = {Email}\nDate of birth = {BirthDate}\n"+
+                   $"IsAdult = {IsAdult}\nIsBirthday = {IsBirthday}\nChinese zodiac = {ChinaZodiac.GetSign()}\nEurope zodiac = {EuropeZodiac.GetSign()}";
+
+            if (IsBirthday)
+            {
+                ret += "\n\n\nHAPPY BIRTHDAY!!!\n\n\n";
+            }
+
+            return ret;
         }
     }
 }

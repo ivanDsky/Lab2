@@ -3,6 +3,7 @@ using System.Windows;
 using Lab2.Models;
 using Lab2.Tools;
 using Lab2.Tools.Validation;
+using Lab2.Views;
 
 namespace Lab2.ViewModels
 {
@@ -11,6 +12,7 @@ namespace Lab2.ViewModels
         #region Private fields
         private Person _person = new Person("","");
         private RelayCommand<object> _showFullInfo;
+        private Window? _window = null;
 
         #endregion
 
@@ -40,13 +42,16 @@ namespace Lab2.ViewModels
             }
         }
 
-        private async void GoToFullInfo()
+        private void GoToFullInfo()
         {
             if (!Validate(_person))
                 MessageBox.Show("Incorrect input!");
             else
             {
-                MessageBox.Show($"Correct input for {_person.Name} {_person.Surname}");
+                _window?.Close();
+                _window = new ResultWindow(_person);
+                _window.Show();
+                // MessageBox.Show($"Correct input for {_person.Name} {_person.Surname}");
             }
         }
 
