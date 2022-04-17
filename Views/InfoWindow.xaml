@@ -3,36 +3,37 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:contrl="clr-namespace:Lab2.Tools.Controls"
         xmlns:local="clr-namespace:Lab2.Views"
         mc:Ignorable="d"
-        MinHeight="320" MinWidth="400"
-        Title="Login App (by Ivan Dobrovolsky)" Height="450" Width="800">
-    <Grid ShowGridLines="True">
+        MinHeight="280" MinWidth="400"
+        Title="Login App (by Ivan Dobrovolsky)" Height="350" Width="400">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="65"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.4*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Name:" VerticalContentAlignment="Center"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name, Mode=OneWay, UpdateSourceTrigger=LostFocus}"
-                 VerticalContentAlignment="Center"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Surname:" VerticalContentAlignment="Center"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name, Mode=OneWay, UpdateSourceTrigger=LostFocus}"
-                 VerticalContentAlignment="Center"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Email:" VerticalContentAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Name, Mode=OneWay, UpdateSourceTrigger=LostFocus}"
-                 VerticalContentAlignment="Center"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Date of birth:" VerticalContentAlignment="Center"/>
-        <DatePicker Grid.Row="3" Grid.Column="1"
+        <contrl:LabeledTextBox Grid.Column="0" Grid.Row="0" Caption="Name"
+            Text="{Binding Path=Name, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+        <contrl:LabeledTextBox Grid.Column="0" Grid.Row="1" Caption="Surname"
+            Text="{Binding Path=Surname, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+        <contrl:LabeledTextBox Grid.Column="0" Grid.Row="2" Caption="Email"
+            Text="{Binding Path=Email, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label
+            HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,2" FontSize="9" Foreground="Gray"
+            Grid.Row="0" Grid.Column="1" Content="Date of birth:" VerticalContentAlignment="Center"/>
+        <DatePicker Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
                     SelectedDate="{Binding Path=Date, Mode=OneWay, UpdateSourceTrigger=LostFocus}"
                     VerticalContentAlignment="Center"/>
 
-        <Button Grid.Row="4" Grid.ColumnSpan="2" Height="40" Width="140" Content="Validate"></Button>
+        <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Height="40" Width="140"
+                Command="{Binding ShowFullInfo}"
+                Content="Validate"/>
     </Grid>
 </Window>
