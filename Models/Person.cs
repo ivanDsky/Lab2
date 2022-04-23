@@ -1,4 +1,5 @@
 using System;
+using Lab2.Exceptions;
 using Lab2.Tools;
 using Lab2.Tools.Validation;
 using Lab2.Tools.Zodiac;
@@ -31,24 +32,30 @@ namespace Lab2.Models
             get => _dateTime;
             set
             {
-                if (!BirthDateValidation.Validate(value))
-                {
-                    return;
-                }
                 if (value == null)
                 {
                     _dateTime = null;
                     _chinaZodiac = null;
                     _europeZodiac = null;
                     _calculator = null;
+                    return;
                 }
-                else
+                
+                
+                try
                 {
-                    _dateTime = value;
-                    _chinaZodiac = new ChinaZodiac(_dateTime.Value);
-                    _europeZodiac = new EuropeZodiac(_dateTime.Value);
-                    _calculator = new AgeCalculator(_dateTime.Value);
+                    BirthDateValidation.Check(value);
                 }
+                catch (AgeException e)
+                {
+                    Console.WriteLine(e);
+                    return;
+                }
+                
+                _dateTime = value;
+                _chinaZodiac = new ChinaZodiac(_dateTime.Value);
+                _europeZodiac = new EuropeZodiac(_dateTime.Value);
+                _calculator = new AgeCalculator(_dateTime.Value);
             }
         }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using Lab2.Exceptions;
 using Lab2.Models;
 using Lab2.Tools;
 using Lab2.Tools.Validation;
@@ -20,20 +21,37 @@ namespace Lab2.ViewModels
 
         public string Name  { get => _person.Name; set => _person.Name = value; }
         public string Surname  { get => _person.Surname; set => _person.Surname = value; }
-        public string Email  { get => _person.Email; set => _person.Email = value; }
-        public DateTime? BirthDate { get => _person.DateOfBirth; set => _person.DateOfBirth = value; }
-        public DateTime StartDate { get => DateTime.Today.AddYears(-135);}
-        public DateTime EndDate { get => DateTime.Today;}
+        public string Email
+        {
+            get => _person.Email;
+            set => _person.Email = value;
+        }
+
+        public DateTime? BirthDate
+        {
+            get => _person.DateOfBirth;
+            set
+            {
+                if (value != null)
+                    try
+                    {
+                        BirthDateValidation.Check(value);
+                    }
+                    catch (AgeException e)
+                    {
+                        ShowError(e.Message);
+                        BirthDate = _person.DateOfBirth;
+                        return;
+                    }
+                
+                _person.DateOfBirth = value;
+            }
+        }
 
         #endregion
 
         #region Private methods
-
-
-        public void OnDataChanged(DateTime? date)
-        {
-            _person.DateOfBirth = date;
-        }
+        
         public RelayCommand<object> ShowFullInfo
         {
             get
@@ -44,20 +62,29 @@ namespace Lab2.ViewModels
 
         private void GoToFullInfo()
         {
-            if (!Validate(_person))
-                MessageBox.Show("Incorrect input!");
-            else
+            try
             {
-                _window?.Close();
-                _window = new ResultWindow(_person);
-                _window.Show();
-                // MessageBox.Show($"Correct input for {_person.Name} {_person.Surname}");
+                EmailValidation.Check(_person.Email);
             }
+            catch (IncorrectEmailException e)
+            {
+                ShowError(e.Message);
+                return;
+            }
+            _window?.Close();
+            _window = new ResultWindow(_person);
+            _window.Show();
         }
 
         private bool Validate(object obj)
         {
             return PersonValidation.Validate(_person);
+        }
+
+        private void ShowError(string message)
+        {
+            MessageBox.Show(message, "Error", 
+                MessageBoxButton.OK, MessageBoxImage.Error);
         }
         #endregion
     }

@@ -30,10 +30,7 @@
             Grid.Row="0" Grid.Column="1" Content="Date of birth:" VerticalContentAlignment="Center"/>
         <DatePicker Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
                     x:Name="datePicker"
-                    DisplayDateStart="{Binding StartDate, Mode=OneTime}"
-                    DisplayDateEnd="{Binding EndDate, Mode=OneTime}"
-                    SelectedDate="{Binding Path=BirthDate, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedDateChanged="datePicker_SelectedDateChanged"
+                    SelectedDate="{Binding Path=BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     VerticalContentAlignment="Center">
             <DatePicker.Resources>
                 <Style TargetType="DatePickerTextBox">
