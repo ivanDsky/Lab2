@@ -4,7 +4,7 @@ using Lab2.Models;
 
 namespace Lab2.Tools.Validation
 {
-    public class PersonValidation
+    public static class PersonValidation
     {
         public static void Check(Person person)
         {

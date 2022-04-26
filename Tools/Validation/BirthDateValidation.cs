@@ -4,7 +4,7 @@ using Lab2.Models;
 
 namespace Lab2.Tools.Validation
 {
-    public class BirthDateValidation
+    public static class BirthDateValidation
     {
         public static void Check(DateTime? dateOfBirth)
         {

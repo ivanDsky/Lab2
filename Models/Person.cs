@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Lab2.Exceptions;
 using Lab2.Tools;
 using Lab2.Tools.Validation;
@@ -51,11 +52,8 @@ namespace Lab2.Models
                     Console.WriteLine(e);
                     return;
                 }
-                
-                _dateTime = value;
-                _chinaZodiac = new ChinaZodiac(_dateTime.Value);
-                _europeZodiac = new EuropeZodiac(_dateTime.Value);
-                _calculator = new AgeCalculator(_dateTime.Value);
+
+                initDateFields(value.Value);
             }
         }
 
@@ -109,6 +107,14 @@ namespace Lab2.Models
             {
                 throw new MissingFieldException("No date birth detected");
             }
+        }
+
+        private async Task initDateFields(DateTime date)
+        {
+            await Task.Run(() => { _dateTime = date; });
+            await Task.Run(() => { _chinaZodiac = new ChinaZodiac(date); });
+            await Task.Run(() => { _europeZodiac = new EuropeZodiac(date);});
+            await Task.Run(() => { _calculator = new AgeCalculator(date); });
         }
 
         public override string ToString()
