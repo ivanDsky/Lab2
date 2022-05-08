@@ -1,0 +1,80 @@
+<Window x:Class="Lab2.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:contrl="clr-namespace:Lab2.Tools.Controls"
+        xmlns:local="clr-namespace:Lab2.Views"
+        mc:Ignorable="d"
+        MinHeight="400" MinWidth="700"
+        Title="Login App (by Ivan Dobrovolsky)" Height="400" Width="700">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="1" Height="30" Width="140"
+                Command="{Binding Path=AddPerson}"
+                Content="Add user"/>
+        <Button Grid.Row="0" Grid.Column="2" Height="30" Width="140"
+                Command="{Binding Path=EditPerson}"
+                Content="Edit user"/>
+        <Button Grid.Row="0" Grid.Column="3" Height="30" Width="140"
+                Command="{Binding Path=DeletePerson}"
+                Content="Delete user"/>
+
+        <Label Grid.ColumnSpan="4" Grid.Row="1" Content="{Binding CurrentPersonText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
+
+        <Label Grid.Column="0" Grid.Row="2" Content="Filter by" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+        <ComboBox Grid.Column="1" Grid.Row="2" Margin="3" VerticalContentAlignment="Center" SelectedIndex="{Binding SelectedFilter, Mode=TwoWay}">
+            <ComboBoxItem Content="No filters"/>
+            <ComboBoxItem Content="Name"/>
+            <ComboBoxItem Content="Surname"/>
+            <ComboBoxItem Content="Email" />
+            <ComboBoxItem Content="Date of birth" />
+            <ComboBoxItem Content="Europe" />
+            <ComboBoxItem Content="Chinese" />
+        </ComboBox>
+        <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="25"
+                 VerticalContentAlignment="Center"
+                 Margin="5,0,5,5" Text="{Binding Path=Filter, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+        <Label Grid.Column="0" Grid.Row="3" Content="Sort by" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+        <ComboBox Grid.Column="1" Grid.Row="3" Margin="3" VerticalContentAlignment="Center" SelectedIndex="{Binding SelectedSort, Mode=TwoWay}">
+            <ComboBoxItem Content="Name"/>
+            <ComboBoxItem Content="Surname"/>
+            <ComboBoxItem Content="Email" />
+            <ComboBoxItem Content="Date of birth" />
+            <ComboBoxItem Content="Europe" />
+            <ComboBoxItem Content="Chinese" />
+            <ComboBoxItem Content="IsBirthday"/>
+            <ComboBoxItem Content="IsAdult"/>
+        </ComboBox>
+        <CheckBox Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" VerticalContentAlignment="Center" Content="Descending" IsChecked="{Binding IsDescending}"/>
+
+        <DataGrid Name="dataGrid" Grid.ColumnSpan="4" Grid.Row="4"  ItemsSource="{Binding Persons, Mode=OneWay}"
+                  CanUserSortColumns="False" AutoGenerateColumns="False" SelectionMode="Single"
+                  IsReadOnly="True" SelectedItem="{Binding Path=CurrentPerson, Mode=OneWayToSource}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                <DataGridTextColumn Header="Date of birth" Binding="{Binding BirthDate}"/>
+                <DataGridTextColumn Header="Europe" Binding="{Binding EuropeZodiac}"/>
+                <DataGridTextColumn Header="Chinese" Binding="{Binding ChinaZodiac}"/>
+                <DataGridTextColumn Header="IsBirthday" Binding="{Binding IsBirthday}"/>
+                <DataGridTextColumn Header="IsAdult" Binding="{Binding IsAdult}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

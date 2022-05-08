@@ -11,8 +11,7 @@ namespace Lab2.Tools.Validation
             if (string.IsNullOrWhiteSpace(person.Name)) throw new EmptyFieldException("Name");
             if (string.IsNullOrWhiteSpace(person.Surname)) throw new EmptyFieldException("Surname");
             if (string.IsNullOrWhiteSpace(person.Email)) throw new EmptyFieldException("Email");
-            if (person.DateOfBirth == null) throw new EmptyFieldException("DateOfBirth");
-         
+
             BirthDateValidation.Check(person.DateOfBirth);
         }
         public static bool Validate(Person person)
